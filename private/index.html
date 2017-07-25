@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="Scripts/index.js"></script>
+  <script src="Scripts/Chart.bundle.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="Styles/main.css">
+</head>
+<body>
+  <div class="mainPage">
+    <div class="header">
+      <h1 class ="header">Nate Home Base</h1>
+    </div>
+    <div class="navbar">
+      <ul class="navbar">
+        <li class="navbar"><a href="/home/index.html">Main</a></li>
+        <!-- Change to localhost/admin on pi -->
+        <li class="navbar"><a href="http://192.168.0.34/admin" target="_blank">Pi-Hole Admin</a></li>
+        <li style="float:right; border-left: 1px solid white"
+          class="navbar"><a href="about.html">About Me</a>
+      </ul>
+    </div>
+    <div class="row-2">
+      <div class="pi-sum">
+        <h2>Pi-hole Stats</h2>
+        <table class="pi-stats">
+          <tr>
+            <td>Domains Being Blocked: </td>
+            <td id="numBlocked"></td>
+          </tr>
+          <tr>
+            <td>DNS Queries Today: </td>
+            <td id="qToday"></td>
+          </tr>
+          <tr>
+            <td>Ads Blocked Today: </td>
+            <td id="blockedToday"></td>
+          </tr>
+          <tr>
+            <td>Ad Percentage Today: </td>
+            <td id="adPercent"></td>
+          </tr>
+          <tr>
+            <td>Unique Domains: </td>
+            <td id="uniqueD"></td>
+          </tr>
+          <tr>
+            <td>Queries Forwarded: </td>
+            <td id="qForward"></td>
+          </tr>
+          <tr>
+            <td>Queries Cached: </td>
+            <td id="qCached"></td>
+          </tr>
+          <tr>
+            <td>Unique Clients: </td>
+            <td id="uniqueID"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="queryChart">
+        <div class="graph-header">
+          <span><h2 id="chartLabel" style="padding:5px; margin:0px;">Queries over 24 hours</h2></span>
+        </div>
+        <canvas id="queryChart" height="250px"></canvas>
+        <div id ="form-1">
+          <form id="from-to">
+            Range: <select id="selected">
+              <option selected="selected" value="0">Last hour</option>
+              <option value="1">Last 8 hours</option>
+              <option value="2">Last day</option>
+              <option value="3">Custom</option>
+            </select>
+
+          </form>
+          <span><button onClick="buttonPush()">Update Graph</button></span>
+        </div>
+      </div>
+
+    </div>
+    <iframe id="home-iframe" src="/Home/home-iframe.html"</iframe>
+  </div>
+
+
+
+
+</body>
+</html>
