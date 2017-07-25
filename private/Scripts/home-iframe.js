@@ -12,6 +12,17 @@ $(function() {  //Run on load
   $("#blue").slider("value", 60);
 
 
+
+  $("#fade").on('click', function(){
+    console.log("fade");
+    $.ajax({
+      url:"http://127.0.0.1:3000",
+      type: "POST",
+      dataType:"json",
+      data:"fade"
+    });
+  });
+
 });
 //------------------------Slider functions-----------------------------------
 function hexFromRGB(r, g, b) {

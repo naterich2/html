@@ -8,7 +8,6 @@ const hostname = '127.0.0.1';
 const reqHandler = (request, response) => {
 
   if(request.method=='POST'){
-    var colors='';
     var body= '';
     request.on('data', function(data){
       body += data;
@@ -17,12 +16,34 @@ const reqHandler = (request, response) => {
       }
     });
     request.on('end', function(){
-      colors=JSON.parse(body);
-
+      handleRequest(body);
+      //colors=JSON.parse(body);
+    //  console.log(colors);
+      //exec('gpio pwm ${redPin} ${colors.led.red}');
+      //exec('gpio pwm ${greenPin} ${colors.led.green}');
+      //exec('gpio pwm ${bluePin} ${colors.led.blue}');
     });
-    console.log(colors);
   }
+}
 
+handleRequest=function(data){
+  var colors;
+  if(data.toString() === 'fade'){
+
+  } else if(data.toString() === 'fast') {
+
+  } else if(data.toString() === 'solid') {
+
+  } else if(data.toString() === 'off') {
+
+  } else {
+    try{
+      colors = JSON.parse(data);
+      console.log(colors.led);
+    } catch(e){
+      console.log("Cannot interpret request");
+    }
+  }
 }
 
 
