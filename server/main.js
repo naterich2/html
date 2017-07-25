@@ -6,8 +6,9 @@ const port = 3000;
 const hostname = '127.0.0.1';
 
 const reqHandler = (request, response) => {
-  var colors='';
+
   if(request.method=='POST'){
+    var colors='';
     var body= '';
     request.on('data', function(data){
       body += data;
@@ -16,14 +17,11 @@ const reqHandler = (request, response) => {
       }
     });
     request.on('end', function(){
-      try{
-        colors=JSON.parse(body);
-        console.log(colors);
-      } catch(e){
-        console.log(e);
-      }
-    });
 
+      colors=JSON.parse(body);
+
+    });
+    console.log(colors);
   }
 
 }
