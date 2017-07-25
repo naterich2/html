@@ -28,8 +28,19 @@
       #blue .ui-slider-handle { border-color: #729fcf; }
     </style>
     <script src="/private/Scripts/home-iframe.js"></script>
+    <script>
+      $(function(){
+        $.getJSON("/private/api.json", function(data){
+          var tempAndHum=JSON.parse(JSON.stringify(data));
+
+          $("#temp").html(tempAndHum.temperature+"&#176F");
+          $("#humid").text(tempAndHum.humidity+"%");
+        });
+      });
+
+    </script>
   </head>
-  <body class="ui-widget-content">
+  <body class="ui-widget-content" style="border: none;">
     <table>
       <tr>
         <td>Current Temperature: </td>
@@ -50,6 +61,7 @@
         <button id="fade">Fade</button>
         <button id="fast">Fast</button>
         <button id="solid">Solid</button>
+        <button id="off">Off</button>
       </div>
     </div>
   </body>

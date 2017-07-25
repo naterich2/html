@@ -17,7 +17,6 @@ const reqHandler = (request, response) => {
       }
     });
     request.on('end', function(){
-
       colors=JSON.parse(body);
 
     });
