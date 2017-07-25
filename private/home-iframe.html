@@ -58,8 +58,16 @@ $( function() {
       blue = $( "#blue" ).slider( "value" ),
       hex = hexFromRGB( red, green, blue );
     $( "#swatch" ).css( "background-color", "#" + hex );
-    var data={'led':{'red': red, 'green': green, 'blue': blue}};
-    console.log(JSON.stringify(data));
+    var color={'led':{'red': red, 'green': green, 'blue': blue}};
+    color = JSON.stringify(color);
+    console.log(color);
+    $.ajax({
+      url:"http://127.0.0.1:3000",
+      type: "POST",
+      dataType:"json",
+      data:color
+    });
+
   }
 
   $( "#red, #green, #blue" ).slider({
@@ -67,7 +75,7 @@ $( function() {
     range: "min",
     max: 255,
     value: 127,
-    slide: update,
+    slide: refreshSwatch,
     change: update
   });
   $( "#red" ).slider( "value", 255 );

@@ -71,7 +71,6 @@ function updateGraph(){
       apiString.concat("?overTimeData10mins");
       break;
   }
-  console.log(apiString);
   $.getJSON(apiString, function(data) {
     data.domains_over_time = objectToArray(data.domains_over_time);
     data.ads_over_time = objectToArray(data.ads_over_time);
@@ -100,7 +99,6 @@ function updateGraph(){
             timeLineChart.data.datasets[1].data.push(data.ads_over_time[1][hour]);
         }
     }
-    console.log(timeLineChart.data.labels);
     timeLineChart.update();
   });
 }
@@ -110,7 +108,6 @@ function updateSummaryData(){
   $.getJSON("http://192.168.0.34/admin/api.php", function(data){
     try{
       document.getElementById("numBlocked").innerHTML = (aString+data.domains_being_blocked+"</a>");
-      console.log(aString+data.domains_being_blocked+"</a>");
       document.getElementById("qToday").innerHTML = (aString+data.dns_queries_today+"</a>");
       document.getElementById("blockedToday").innerHTML = aString+data.ads_blocked_today+"</a>";
       document.getElementById("adPercent").innerHTML = aString+data.ads_percentage_today+"</a>";
