@@ -1,9 +1,9 @@
-#include <wiringpi.h>
+#include <wiringPi.h>
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 #include <stdint.h>
 
-#define PIN 21;
+#define PIN 21
 
 
 
@@ -27,7 +27,7 @@ void read_dat(){
     counter=0;                              //Cycle through each
     while(digitalRead(PIN)==laststate){  //change in state
       counter++;                            //description                           Count after loop
-      delay(1);                             //Time till sensor changes --             1
+      delayMicroseconds(1);                 //Time till sensor changes --             1
       if(counter ==255)                     //Sensor pulls low                        2
         break;                              //Sensor pulls handle_signals             3
     }                                       //Sensor starts transmission with Low     4
@@ -50,7 +50,7 @@ void read_dat(){
   }
 }
 
-int main(){
+int main(void){
   wiringPiSetupGpio();
   while(1){
     read_dat();
