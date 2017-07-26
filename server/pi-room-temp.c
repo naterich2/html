@@ -3,15 +3,8 @@
 #include <stlib.h>
 #include <stdint.h>
 
-#define DHTpin = 21;
+#define PIN 21;
 
-int main(){
-  wiringPiSetupGpio();
-  while(1){
-    read_dat();
-    delay(1000);
-  }
-}
 
 
 int dat[5]={0,0,0,0,0};
@@ -22,23 +15,23 @@ void read_dat(){
   uint8_t laststate = HIGH;
   dat[0]=dat[1]=dat[2]=dat[3]=dat[4]=0;
 
-  pinMode(DHTpin, OUTPUT);
-  digitalWrite(DHTpin, LOW); //Send start signal 20ms Low
+  pinMode(PIN, OUTPUT);
+  digitalWrite(PIN, LOW); //Send start signal 20ms Low
   delay(20);
 
-  digitalWrite(DHTpin, HIGH); //Pull up for 20-40ms
+  digitalWrite(PIN, HIGH); //Pull up for 20-40ms
   delay(40);
 
-  pinMode(DHTpin, INPUT);   //pin will be input now
+  pinMode(PIN, INPUT);   //pin will be input now
   for(i=0; i<85;i++){
     counter=0;                              //Cycle through each
-    while(digitalRead(DHTpin)==laststate){  //change in state
+    while(digitalRead(PIN)==laststate){  //change in state
       counter++;                            //description                           Count after loop
       delay(1);                             //Time till sensor changes --             1
       if(counter ==255)                     //Sensor pulls low                        2
         break;                              //Sensor pulls handle_signals             3
     }                                       //Sensor starts transmission with Low     4
-    laststate = digitalRead(DHTpin);        //First bit starts at count 4
+    laststate = digitalRead(PIN);        //First bit starts at count 4
     if(counter == 255)                      //Second bit starts 2 after that (low then high)
       break;                                //so every even cycle starting at 4 is high data bit
 
@@ -54,5 +47,13 @@ void read_dat(){
     f = dat[2]*9./5.+32;
     printf("humidity= %d.%d %% Temperature = %d.%d C\n",
             dat[0],dat[1],dat[2],dat[3]);
+  }
+}
+
+int main(){
+  wiringPiSetupGpio();
+  while(1){
+    read_dat();
+    delay(1000);
   }
 }
