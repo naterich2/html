@@ -24,29 +24,18 @@ void read_dat(){
   digitalWrite(PIN, LOW); //Send start signal 20ms Low
   delay(20);
 
-
-  pinMode(PIN, INPUT);
-  for(volatile int i=0;i<50; i++){}//Delay before reading
-
-  //wait for DHT to pull low
-  uint32_t count = 0;
-  for(int x=0;x<200;x++){}
-  while(digitalRead(PIN)==HIGH){
-    if(++count >= DHT_MAXCOUNT){
-      exit(1);
-    }
-  }
-
+  digitalWrite(PIN, HIGH);
+  delayMicroseconds(40);
 
   pinMode(PIN, INPUT);   //pin will be input now
   for(i = 0; i < 85;i++){
     counter = 0;                              //Cycle through each
     while(digitalRead(PIN) == laststate){  //change in state
-      counter++;                            //description                           Count after loop
-      delayMicroseconds(1);                 //Time till sensor changes --             1
-      if(counter == 255)                     //Sensor pulls low                        2
-        break;                              //Sensor pulls handle_signals             3
-    }                                       //Sensor starts transmission with Low     4
+      counter++;                              //description                           Count after loop
+      delayMicroseconds(1);                   //Time till sensor changes --             1
+      if(counter == 255)                      //Sensor pulls low                        2
+        break;                                //Sensor pulls handle_signals             3
+    }                                         //Sensor starts transmission with Low     4
     laststate = digitalRead(PIN);        //First bit starts at count 4
     if(counter == 255)                      //Second bit starts 2 after that (low then high)
       break;                                //so every even cycle starting at 4 is high data bit
