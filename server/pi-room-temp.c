@@ -17,13 +17,13 @@ void readd(uint8_t pin){
   digitalWrite(pin, LOW);  //Write low for 2 milliseconds
   delay(2);                //pullup resistor writes high until
   pinMode(pin, INPUT);     //sensor responds
-
-  for(int i=0; i<2000; i++){
+  int x;
+  for(x=0; x<2000; x++){
     if(digitalRead(pin)==LOW) break;
   }
-  int i;
+  int i, j;
   int d_buff[41];
-  for(int j=0; j < DHT_MAXCOUNT; j++){
+  for(j=0; j < DHT_MAXCOUNT; j++){
     for(int i=1; i<2000; i++){
       if(digitalRead(pin) == HIGH) break;
     }
