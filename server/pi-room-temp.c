@@ -13,7 +13,7 @@ int dat[5]={0,0,0,0,0};
 void read_dat(){
   int counter = 0;
   int i=0, j=0;
-  float f;
+  float f=0;
   uint8_t laststate = HIGH;
   dat[0] = dat[1] = dat[2] = dat[3] = dat[4] = 0;
 
@@ -41,17 +41,19 @@ void read_dat(){
       break;                                //so every even cycle starting at 4 is high data bit
 
     if((i >= 4) && (i % 2 == 0)){
-      dat[j/8] = dat[j/8] << 1                 //Shift data at j/8 byte left by one to accomodate next bit
+      dat[j/8] = dat[j/8] << 1;                //Shift data at j/8 byte left by one to accomodate next bit
       if(counter > 16)                      //If its a high bit
         dat[j/8] = dat[j/8] | 1;              //Or with 1 to append bit
         j++;                                //increment bit
     }
   }
-  if(j >= 40 && dat[4]=((dat[0]+dat[1]+dat[2]+dat[3]) & 0xFF)){
+  if(j >= 40 && dat[4]==((dat[0]+dat[1]+dat[2]+dat[3]) & 0xFF)){
     //good data 40 bits and checkbyte
     f = dat[2]*9./5.+32;
     printf("humidity= %d.%d %% Temperature = %d.%d C\n",
             dat[0],dat[1],dat[2],dat[3]);
+  } else {
+    printf("Data not good, skipping: %i %i %i %i %i\n",dat[0],dat[1],dat[2],dat[3],dat[4]);
   }
 }
 
@@ -61,4 +63,5 @@ int main(void){
     read_dat();
     delay(1000);
   }
+  return 0;
 }
